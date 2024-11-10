@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Quiz</title>
+    <style>
+        /* Style for the page */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: left;
+            padding: 20px;
+        }
+        .quiz-container {
+            display: none;
+            margin-top: 20px;
+        }
+        #start-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #submit-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome message -->
+    <h1>Welcome to the Python Quiz!</h1>
+    <p>Are you ready to test your Python knowledge?</p>
+    <button id="start-btn">Start Quiz</button>
+
+    <!-- Quiz form (hidden initially) -->
+    <div class="quiz-container">
+        <h2>Python Quiz</h2>
+        <form action="{{ url_for('submit') }}" method="post">
+            <ol class="question-list">
+                {% for question in questions %}
+                    <li class="question">
+                        <h3>{{ question['question'] }}</h3>
+                        <div class="options">
+                            {% for option in question['options'] %}
+                                <label>
+                                    <input type="radio" name="{{ question['question'] }}" value="{{ option[0] }}"> {{ option }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+            <button type="submit" id="submit-btn">Submit Quiz</button>
+        </form>
+    </div>
+
+    <script>
+        // Show quiz when start button is clicked
+        document.getElementById('start-btn').addEventListener('click', function() {
+            document.querySelector('.quiz-container').style.display = 'block';
+            document.getElementById('start-btn').style.display = 'none'; // Hide start button after click
+        });
+    </script>
+</body>
+</html>
